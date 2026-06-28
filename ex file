@@ -1,0 +1,5 @@
+rm -rf docker-file
+git clone https://github.com/barani3024j/docker-file.git
+cd docker-file
+docker build -t web:1 .
+docker run -itd -p 90:80 web:1
