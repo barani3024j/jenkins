@@ -1,5 +1,16 @@
+#!/bin/bash
+
+set -e
+
 rm -rf docker-file
+
 git clone https://github.com/barani3024j/docker-file.git
+
 cd docker-file
+
+docker rm -f web-container || true
+docker rmi web:1 || true
+
 docker build -t web:1 .
-docker run -itd -p 90:80 web:1
+
+docker run -d --name web-container -p 90:80 web:1
