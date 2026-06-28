@@ -46,6 +46,27 @@ echo "=============================="
 echo " Starting Jenkins"
 echo "=============================="
 sudo systemctl enable jenkins
+sudo systemctl start jenkins
+
+echo "=============================="
+echo " Installing Docker"
+echo "=============================="
+sudo apt install -y docker.io
+
+echo "=============================="
+echo " Starting Docker"
+echo "=============================="
+sudo systemctl enable docker
+sudo systemctl start docker
+
+echo "=============================="
+echo " Adding Jenkins user to Docker group"
+echo "=============================="
+sudo usermod -aG docker jenkins
+
+echo "=============================="
+echo " Restarting Jenkins"
+echo "=============================="
 sudo systemctl restart jenkins
 
 echo "=============================="
@@ -54,12 +75,22 @@ echo "=============================="
 sudo systemctl status jenkins --no-pager
 
 echo "=============================="
+echo " Docker Version"
+echo "=============================="
+docker --version
+
+echo "=============================="
+echo " Docker Status"
+echo "=============================="
+sudo systemctl status docker --no-pager
+
+echo "=============================="
 echo " Initial Admin Password"
 echo "=============================="
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 
 echo "=============================="
-echo " Jenkins Installation Complete!"
-echo " Access Jenkins at:"
-echo " http://<EC2-Public-IP>:8080"
+echo " Installation Completed Successfully!"
 echo "=============================="
+echo "Jenkins URL: http://<EC2-Public-IP>:8080"
+echo "Docker is installed and Jenkins has been added to the Docker group."
